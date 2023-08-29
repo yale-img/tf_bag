@@ -139,32 +139,50 @@ bag_transformer.plotTranslation(frame1, frame2, axis='z')
 
 An ongoing contribution by the [Interactive Machines Group](https://interactive-machines.com/) is packaging `tf_bag` as a standalone Python module.
 
-The following sections assume that [Poetry](https://python-poetry.org/) has been installed.
+The following sections assume that [Poetry](https://python-poetry.org/) has been installed (for instructions, see [documentation](https://python-poetry.org/docs/#installation)).
+To check that Poetry is installed and available:
+
+```console
+$ poetry --version
+Poetry (version 1.5.1)  # expected output
+```
 
 
-### Installing with a specific Python version
+### Specifying the Python Version
 
 Use pyenv to install a specific Python version (e.g., `3.9.17`).
 Then run:
 
-```bash
-pyenv shell 3.9.17
-poetry env use python
-poetry config virtualenvs.in-project true
-poetry install
+```console
+$ pyenv shell 3.9.17
+$ poetry env use python
+$ poetry config virtualenvs.in-project true
+$ poetry install
 ```
 
 To run a command in the virtual environment:
 
-```bash
-poetry run python -c "import tf_bag; print(tf_bag.__version__)"
+```console
+$ poetry run python -c "import tf_bag; print(tf_bag.__version__)"
 ```
 
 
-### Adding a new package from rospypi
+### Adding Packages from rospypi
 
 Python packages for ROS can be conveniently installed from the [rospypi](https://github.com/rospypi/simple) index:
 
-```bash
-poetry add --source rospypi <package name>
+```console
+$ poetry add --source rospypi <package name>
 ```
+
+
+### Adding tf_bag as a Pipenv Dependency
+
+Often, development virtual environments are managed with [Pipenv](https://pipenv.pypa.io/).
+To add `tf_bag` to a virtual environment, it is recommended to install from this GitHub repo, as opposed to cloning a submodule, in order to allow Pipenv to automatically install dependencies:
+
+```console
+$ pipenv install git+https://github.com/yale-img/tf_bag.git#egg=tf_bag
+```
+
+Don't overlook the egg fragment specifier `#egg=tf_bag` !!
