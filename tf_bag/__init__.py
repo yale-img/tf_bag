@@ -339,6 +339,22 @@ class BagTfTransformer(object):
         ret = ((t, self.lookupTransform(orig_frame=orig_frame, dest_frame=dest_frame, time=t)) for t in update_times)
         return ret
 
+    def lookupTransformStamped(self, orig_frame, dest_frame, time):
+        """
+        Returns TransformStamped message between the two provided frames at the given time
+
+        :param orig_frame: the source tf frame of the transform of interest
+        :param dest_frame: the target tf frame of the transform of interest
+        :param time: the first time at which the messages should be considered; if None, all recorded messages
+        :return: the ROS time at which the transform is available
+        """
+        translation, rotation = self.lookupTransform(orig_frame, dest_frame, time)
+        header_msg = Header(stamp=time, frame_id=orig_frame)
+        ts = TransformStamped(header=header_msg, child_frame_id=dest_frame)
+        ts.transform.translation = Vector3(translation[0], translation[1], translation[2])
+        ts.transform.rotation = Quaternion(rotation[0], rotation[1], rotation[2], rotation[3])
+        return ts
+
     def getFrameAncestors(self, frame, early_stop_frame=None):
         """
         Returns the ancestor frames of the given tf frame, until the tree root
