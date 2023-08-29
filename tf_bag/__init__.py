@@ -20,18 +20,19 @@ class BagTfTransformer(object):
     A transformer which transparently uses data recorded from rosbag on the /tf topic
     """
 
-    def __init__(self, bag):
+    def __init__(self, bag, only_static=False):
         """
         Create a new BagTfTransformer from an open rosbag or from a file path
 
         :param bag: an open rosbag or a file path to a rosbag file
+        :param only_static: whether to only load /tf_static messages
         """
         if type(bag) == str:
             bag = rosbag.Bag(bag)
         self.tf_messages = sorted(
             (self._remove_slash_from_frames(tm) for m in bag if m.topic.strip("/") == 'tf' for tm in
              m.message.transforms),
-            key=lambda tfm: tfm.header.stamp.to_nsec())
+            key=lambda tfm: tfm.header.stamp.to_nsec()) if not only_static else []
         self.tf_static_messages = sorted(
             (self._remove_slash_from_frames(tm) for m in bag if m.topic.strip("/") == 'tf_static' for tm in
              m.message.transforms),
