@@ -1,10 +1,3 @@
-from __future__ import division
-try:
-    # Python 2
-    from future_builtins import filter
-except ImportError:
-    # Python 3
-    pass
 import copy
 import numpy as np
 import rosbag
