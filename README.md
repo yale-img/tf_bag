@@ -134,3 +134,37 @@ Otherwise, the value of the translation in one axis will be plotted over time:
 bag_transformer.plotTranslation(frame1, frame2, axis='z')
 ```
 
+
+## Notes on using the Poetry build system
+
+An ongoing contribution by the [Interactive Machines Group](https://interactive-machines.com/) is packaging `tf_bag` as a standalone Python module.
+
+The following sections assume that [Poetry](https://python-poetry.org/) has been installed.
+
+
+### Installing with a specific Python version
+
+Use pyenv to install a specific Python version (e.g., `3.9.17`).
+Then run:
+
+```bash
+pyenv shell 3.9.17
+poetry env use python
+poetry config virtualenvs.in-project true
+poetry install
+```
+
+To run a command in the virtual environment:
+
+```bash
+poetry run python -c "import tf_bag; print(tf_bag.__version__)"
+```
+
+
+### Adding a new package from rospypi
+
+Python packages for ROS can be conveniently installed from the [rospypi](https://github.com/rospypi/simple) index:
+
+```bash
+poetry add --source rospypi <package name>
+```

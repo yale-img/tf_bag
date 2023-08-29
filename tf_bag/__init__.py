@@ -13,6 +13,7 @@ import tf
 from std_msgs.msg import Header
 from geometry_msgs.msg import TransformStamped, Transform, Vector3, Quaternion
 
+__version__ = '0.1.0'
 
 class BagTfTransformer(object):
     """

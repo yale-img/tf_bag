@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "tf_bag"
+version = "0.1.0"
+description = "Utilities to transparently use tf data recorded with rosbag"
+authors = ["Marco Esposito <esposito@imfusion.com>"]
+license = "GPLv3"
+readme = "README.md"
+packages = [{include = "tf_bag"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.25.2"
+rospkg = "^1.5.0"
+rosbag = {version = "^1.15.11", source = "rospypi"}
+
+
+[[tool.poetry.source]]
+name = "rospypi"
+url = "https://rospypi.github.io/simple/"
+priority = "primary"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
