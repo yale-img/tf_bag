@@ -179,6 +179,8 @@ $ poetry add --source rospypi <package name>
 ### Adding tf_bag as a Pipenv Dependency
 
 Often, development virtual environments are managed with [Pipenv](https://pipenv.pypa.io/).
+
+You should use this option when you want to use `tf_bag`, without necessarily building a separate virtual environment (e.g., to develop the package itself).
 To add `tf_bag` to a virtual environment, it is recommended to install from this GitHub repo, as opposed to cloning a submodule, in order to allow Pipenv to automatically install dependencies:
 
 ```console
@@ -186,3 +188,19 @@ $ pipenv install git+https://github.com/yale-img/tf_bag.git#egg=tf_bag
 ```
 
 Don't overlook the egg fragment specifier `#egg=tf_bag` !!
+
+
+#### Installing with pip
+
+You can also install the package with pip:
+
+```console
+$ pip install numpy
+$ pip install --extra-index-url https://rospypi.github.io/simple/ rosbag tf tf2_ros
+$ pip install git+https://github.com/yale-img/tf_bag.git
+$ python -c "import tf_bag; print(tf_bag.__version__)"
+0.1.0  # expected output
+```
+
+Note that you should NOT have an active catkin workspace including the ROS package version of `tf_bag`.
+Additionally, it is **strongly recommended** to install `tf_bag` in a virtual environment, **even if you are not installing with Pipenv**.
